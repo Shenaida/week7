@@ -1,0 +1,14 @@
+<!-- zodra messageService berichten heeft dan pas wordt de div getoond -->
+<div *ngIf="messageService.messages.length">
+
+        <h2>Messages</h2>
+        <button class="clear"
+                (click)="messageService.clear()">clear</button>
+                <!--event binding aan de click, waarbij gelijk de methode van de messageService wordt uitgevoerd-->
+        <div *ngFor='let message of messageService.messages'> {{message}} </div>
+      
+      </div>
+      <!-- Ik vond lastig te begrijpen dat messageService.message al toegankelijk is in de html, 
+        zonder dat message.component.ts een property van messageService heeft, 
+        maar onder water is door DI messageService gezet op een public messageService property 
+    om in de html te binden, moet de property public zijn-->
