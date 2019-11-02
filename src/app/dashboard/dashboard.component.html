@@ -1,0 +1,12 @@
+<h3>Top Heroes</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let hero of heroes" class="col-1-4">
+    <div class="module hero">
+      <h4>{{hero.name}}</h4>
+    </div>
+  </a>
+</div>
+
+<!-- ik vond lastig te begrijpen wat col-1-4 was, bij bootstrap zie ik wel een gridsysteem van col-sm-3 en col-sm-9 om 
+aan te geven dat bij smalle devices de verdeling van de grid 3 en 9 is, maar na opzoeken van grid
+kwam ik erachter dat col-1-4 bij de class grid hoort om de colommen van de grid aan te geven, hier dus een vierde-->

@@ -1,6 +1,12 @@
 
 <!-- double curly braces are Angular's interpolation binding : dit bindt met de propertie van de component.ts(data binding) -->
 <h1>{{title}}</h1>
+<!-- een navigatielink toegevoegd door routerlink, dan path en tussen a tag naam van de link: 'Heroes' -->
+<nav>
+    <a routerLink="/heroes">Heroes</a>
+</nav>
 <!-- elementselector -->
-<app-heroes></app-heroes>
+<!-- <app-heroes></app-heroes> kan hier nu weg, omdat het pas getoond wordt als je browst naar '/heroes' -->
+<!-- <app-heroes></app-heroes> -->
+<router-outlet></router-outlet>
 <app-messages></app-messages>
