@@ -12,21 +12,36 @@ import { MessagesComponent } from './messages/messages.component';
 // na ng generate module app-routing --flat --module=app erbij gekomen
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+//hiermee kan je applicatie dmv http protocol met een externe server praten
+import { HttpClientModule }    from '@angular/common/http';
+//n-memory Web API is intercepting those requests, applying them to an in-memory data store, and returning simulated responses
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
-    DashboardComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule //nieuwe externe modules die de app nodig heeft voor ngModel
+    AppRoutingModule,
+    HttpClientModule,//nieuwe externe modules die de app nodig heeft voor ngModel
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HeroesComponent,
+    HeroDetailComponent,
+    MessagesComponent,
+    HeroSearchComponent,
+    //HeroSearchComponent
+  ],
+  bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }

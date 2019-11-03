@@ -22,16 +22,46 @@
     <!-- om een conditionele css toe te passen
         op een class doe:[class.some-css-class]="some-condition" 
         op het element die gestyled moet worden -->
+
 <ul class="heroes">
+  <li *ngFor="let hero of heroes"> 
+    <!-- omdat javascript omgezet wordt in html, wordt interpolation binding gebruikt, zeg ik dit goed?? -->
+    <a routerLink="/detail/{{hero.id}}">
+    <span class="badge">{{hero.id}}</span>{{hero.name}}
+    </a>
+    <!-- css knapt dit op door de positie relative te maken -->
+    <button class="delete" title="delete hero"
+      (click)="delete(hero)">x</button>
+  </li>
+</ul>
+
+<!-- toevoegen nieuwe hero met een click event binding. wat is #? -->
+<div>
+    <label>Hero name:
+      <input #heroName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+      add
+    </button>
+  </div>
+
+<!-- gecommentarieerd, om het om te zetten in een a tag, deze krijgt dan een routerLink, 
+  waarschijnlijk kan (click) eventhandler weg?  ja dus, onSelect uitgecommentarieerd in .ts  -->
+<!-- <ul class="heroes">
     <li *ngFor="let hero of heroes" 
         (click)="onSelect(hero)" 
         [class.selected]="hero === selectedHero"> 
         <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li>
-</ul>
+</ul> -->
+
+
+
 <!-- component hero-detail wordt hieronder getoond, 
-  ontvangt een hero-object door selectedHero en wordt geplaatst in de hero property van hero-details -->
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+  ontvangt een hero-object door selectedHero en wordt geplaatst in de hero property van hero-details
+[hero] geeft het door aan child-component bij @input-->
+<!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
 
 <!-- ngIf laat alleen deze div zien als selectedHero een value heeft -->
 <!-- <div *ngIf="selectedHero"> 

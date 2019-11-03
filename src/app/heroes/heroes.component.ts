@@ -30,9 +30,10 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
     this.getHeroes();
   }
-  onSelect(hero:Hero):void{
-    this.selectedHero=hero;
-  }
+  //onSelect is niet meer nodig, is vervangen door routerLink in een a tag
+  // onSelect(hero:Hero):void{
+  //   this.selectedHero=hero;
+  // }
 //methode die in de ngOnInit wordt envoked, dat is nadat de constructor is geweest. 
 //de heroes warray in heroservice worden opgehaald en in de property heroes gezet
   getHeroes(): void {
@@ -40,4 +41,28 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => this.heroes = heroes);
 }
 
+//toevoegen van nieuwe hero, als naam leeg is, dan doet het niks
+//anders laten uitvoeren van een heroservice addhero functie met meegegeven naam als object Hero. 
+//dus alleen naam value, geen id
+//dan wacht subscribe voor callback van heroservice??? en dan voegt hij een hero toe aan zijn eigen heroesarray in de property???
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+  //delete methode, krijgt een hero met id mee uit html
+  //haalt het eerst uit zijn eigen lijst met filter
+  //dan door naar heroservice om daar een deletehero functie te laten uitvoeren
+  //een observable verwacht de subscribe methode, als je deze weghaalt, dan haalt het gewoon
+  //de hele lijst heroes op, deleteHero is niet uitgevoerd
+  //echter, nu als je refreshed op localhost/.../heroes, haalt het ook weer alle heroes op. hero is niet uit de InMemoryDataService
+  //!== betekent 'does not equal'
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
+  }
 }
